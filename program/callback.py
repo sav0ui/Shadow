@@ -30,7 +30,7 @@ async def cbstart(_, query: CallbackQuery):
                 [
                     InlineKeyboardButton(
                         "➕اضـف الـبـوت لـمـجـمـوعـتـك➕",
-                        url=f"https://t.me/{BOT_USERNAME}?startgroup=true",
+                        url=f"https://t.me/USDDBOT?startgroup=truehttps://t.me/USDDBOT?startgroup=true",
                     )
                 ],
                 [InlineKeyboardButton("❓ طريقة التفعيل", callback_data="cbhowtouse")],
@@ -43,7 +43,7 @@ async def cbstart(_, query: CallbackQuery):
                         "👥 جروب الدعم", url=f"https://t.me/{GROUP_SUPPORT}"
                     ),
                     InlineKeyboardButton(
-                        "📣 قناة البوت", url=f"https://t.me/{UPDATES_CHANNEL}"
+                        "📣 قناة البوت", url=f"https://t.me/FA9SH"
                     ),
                 ],
                 [
@@ -74,7 +74,7 @@ async def cbguides(_, query: CallbackQuery):
  💡 إذا كانت لديك أسئلة  حول هذا البوت ، فيمكنك إخبارنا منن خلال قروب الدعم الخاصة بي هنا ↤ @{GROUP_SUPPORT}
 
 ⚡ قناة البوت @{UPDATES_CHANNEL}
-__""",
+""",
         reply_markup=InlineKeyboardMarkup(
             [[InlineKeyboardButton("🔙 رجوع", callback_data="cbstart")]]
         ),
@@ -120,7 +120,7 @@ async def cbbasic(_, query: CallbackQuery):
 » /ping 「إظهار حالة البوت بينغ」
 » /uptime 「لعرض مده التشغيل للبوت」
 » /alive「اظهار معلومات البوت(في المجموعه)」
-⚡ قناة البوت @{UPDATES_CHANNEL}__""",
+⚡ قناة البوت @{UPDATES_CHANNEL}""",
         reply_markup=InlineKeyboardMarkup(
             [[InlineKeyboardButton("🔙 رجوع", callback_data="cbcmds")]]
         ),
@@ -143,7 +143,7 @@ async def cbadmin(_, query: CallbackQuery):
 » /reload「لتحديث البوت و قائمة المشرفين」
 » /userbotjoin「لاستدعاء الحساب المساعد」
 » /userbotleave「لطرد الحساب المساعد」
-⚡ قناة البوت @{UPDATES_CHANNEL}__""",
+⚡ قناة البوت @{UPDATES_CHANNEL}""",
         reply_markup=InlineKeyboardMarkup(
             [[InlineKeyboardButton("🔙 رجوع", callback_data="cbcmds")]]
         ),
@@ -162,7 +162,7 @@ async def cbsudo(_, query: CallbackQuery):
 » /restart「اعاده تشغيل البوت」
 » /leaveall「خروج الحساب المساعد من جميع المجموعات」
 
-⚡ قناة البوت @{UPDATES_CHANNEL}__""",
+⚡ قناة البوت @{UPDATES_CHANNEL}""",
         reply_markup=InlineKeyboardMarkup(
             [[InlineKeyboardButton("🔙 رجوع", callback_data="cbcmds")]]
         ),
