@@ -12,7 +12,7 @@
         "pyrogram"
     ],
     "website": "https://t.me/FA9SH",
-    "repository": "https://github.com/XxshadowxX0/musicano",
+    "repository": "https://github.com/USDDBOT/Shadow",
     "success_url": "https://t.me/usddshad",
     "env": {
         "API_ID": {
@@ -35,7 +35,7 @@
         "ASSISTANT_NAME": {
             "description": "قم بوضع يوزر الحساب المساعد بدون علامة @",
             "required": true,
-            "value": "X_SHADOW_MUSIC1_X"
+            "value": "SHADOW_MUSIC0"
         },
         "SESSION_NAME": {
             "description": "قم بوضع كود تيرمكس هنا",
@@ -48,7 +48,8 @@
         },
         "MONGODB_URL": {
             "description": "ضع رابط mongodb لو م هتعرف تجيبو تع هنا @shadow49",
-            "required": true
+            "required": true,
+            "value": "mongodb://mongo:whpSjTwzetUb3VBkYu79@containers-us-west-28.railway.app:7573"
         },
         "GROUP_SUPPORT": {
             "description": "ضع هنا يوزر جروبك بدون علامة @",
