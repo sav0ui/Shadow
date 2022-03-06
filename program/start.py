@@ -115,7 +115,7 @@ async def alive(client: Client, message: Message):
                 ),
             ],
             [
-                InlineKeyboardButton("♡اضف البوت الى مجموعتك♡", url=f"https://t.me/{BOT_USERNAME}?startgroup=true"),
+                InlineKeyboardButton("♡اضف البوت الى مجموعتك♡", url=f"https://t.me/USDDBOT?startgroup=true"),
             ]
         ]
     )
