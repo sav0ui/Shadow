@@ -69,7 +69,6 @@ def updater():
 
 
 @Client.on_message(command(["update", f"update@{BOT_USERNAME}"]) & ~filters.edited)
-@bot_creator
 async def update_bot(_, message: Message):
     chat_id = message.chat.id
     msg = await message.reply("❖ Checking updates...")
@@ -83,7 +82,6 @@ async def update_bot(_, message: Message):
 
 
 @Client.on_message(command(["restart", f"restart@{BOT_USERNAME}"]) & ~filters.edited)
-@bot_creator
 async def restart_bot(_, message: Message):
     try:
         msg = await message.reply_text("❖ Restarting bot...")
