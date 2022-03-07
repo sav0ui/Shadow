@@ -27,7 +27,6 @@ from pyrogram import Client, filters
 from config import UPSTREAM_REPO, BOT_USERNAME
 
 from driver.filters import command
-from driver.decorators import bot_creator
 
 
 def gen_chlog(repo, diff):
