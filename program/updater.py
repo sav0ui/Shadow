@@ -24,7 +24,6 @@ from git.exc import InvalidGitRepositoryError
 from pyrogram.types import Message
 from pyrogram import Client, filters
 
-from program import LOGS
 from config import UPSTREAM_REPO, BOT_USERNAME
 
 from driver.filters import command
