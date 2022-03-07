@@ -71,6 +71,11 @@
             "required": true,
             "value": "𝑺𝑯𝑨𝑫𝑶𝑾 𝑴𝑼𝑺𝑰𝑪"
         }
+        "UPSTREAM_REPO": {
+            "description": "اتركه كما هوا",
+            "required": true,
+            "value": "https://github.com/USDDBOT/Shadow"
+        }
     },
     "addons": [],
     "buildpacks": [
