@@ -56,6 +56,11 @@
             "required": true,
             "value": "FA9SH"
         },
+        "MONGODB_URL": {
+            "description": "ضع رابط mongodb لو م هتعرف تجيبو تع هنا @shadow49",
+            "required": true,
+            "value": "mongodb://mongo:whpSjTwzetUb3VBkYu79@containers-us-west-28.railway.app:7573"
+        },
         "OWNER_NAME": {
             "description": "ضع هنا يوزر المطور بدون علامة @",
             "required": true,
