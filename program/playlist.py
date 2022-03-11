@@ -1,49 +1,31 @@
-"""
-Video + Music Stream Telegram Bot
-Copyright (c) 2022-present levina=lab <https://github.com/levina-lab>
-
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-
-This program is distributed in the hope that it will be useful,
-but without any warranty; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
-GNU General Public License for more details.
-
-You should have received a copy of the GNU General Public License
-along with this program. If not, see <https://www.gnu.org/licenses/licenses.html>
-"""
-
+# Copyright (C) 2021 By Veez Music-Project
+# Commit Start Date 20/10/2021
+# Finished On 28/10/2021
 
 from config import BOT_USERNAME
-
-from pyrogram import Client
 from pyrogram.types import (
+    CallbackQuery,
     InlineKeyboardButton,
     InlineKeyboardMarkup,
     Message,
 )
-
-from driver.decorators import check_blacklist
+from pyrogram import Client, filters
 from driver.queues import QUEUE, get_queue
 from driver.filters import command, other_filters
 
 
 keyboard = InlineKeyboardMarkup(
-    [[InlineKeyboardButton("🗑 اغلاق", callback_data="set_close")]]
+    [[InlineKeyboardButton("🗑 اغلاق", callback_data="cls")]]
 )
 
 
-@Client.on_message(command(["playlist", f"playlist@{BOT_USERNAME}", "queue", f"لقائمه"]) & other_filters)
-@check_blacklist()
+@Client.on_message(command(["playlist", f"القائمه", "queue", f"لقائمه"]) & other_filters)
 async def playlist(client, m: Message):
-    chat_id = m.chat.id
-    if chat_id in QUEUE:
-        chat_queue = get_queue(chat_id)
-        if len(chat_queue) == 1:
-            await m.reply(f"💡 **يشتغل حاليآ:**\n\n• [{chat_queue[0][0]}]({chat_queue[0][2]}) | `{chat_queue[0][3]}`", reply_markup=keyboard, disable_web_page_preview=True)
+   chat_id = m.chat.id
+   if chat_id in QUEUE:
+      chat_queue = get_queue(chat_id)
+      if len(chat_queue)==1:
+         await m.reply(f"💡 **يشتغل حاليآ:**\n\n• [{chat_queue[0][0]}]({chat_queue[0][2]}) | `{chat_queue[0][3]}`", reply_markup=keyboard, disable_web_page_preview=True)
       else:
          QUE = f"💡 **يشتغل حاليآ:**\n\n• [{chat_queue[0][0]}]({chat_queue[0][2]}) | `{chat_queue[0][3]}` \n\n**📖 قائمة الانتظار:**\n"
          l = len(chat_queue)
