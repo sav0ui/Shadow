@@ -46,6 +46,11 @@
             "required": true,
             "value": "1970797144"
         },
+        "OWNER_ID": {
+            "description": "قم بوضع ايدي المطور الاساسي",
+            "required": true,
+            "value": "1970797144"
+        },
         "GROUP_SUPPORT": {
             "description": "ضع هنا يوزر جروبك بدون علامة @",
             "required": true,
