@@ -1,21 +1,43 @@
-# Copyright (C) 2021 By VeezMusicProject
+"""
+Video + Music Stream Telegram Bot
+Copyright (c) 2022-present levina=lab <https://github.com/levina-lab>
 
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but without any warranty; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program. If not, see <https://www.gnu.org/licenses/licenses.html>
+"""
+
+
+from driver.core import me_bot, me_user
 from driver.queues import QUEUE
+from driver.decorators import check_blacklist
+from program.utils.inline import menu_markup, stream_markup
+
 from pyrogram import Client, filters
-from program.utils.inline import menu_markup
 from pyrogram.types import CallbackQuery, InlineKeyboardButton, InlineKeyboardMarkup
+
 from config import (
-    ASSISTANT_NAME,
-    BOT_NAME,
     BOT_USERNAME,
     GROUP_SUPPORT,
-    OWNER_NAME,
+    OWNER_USERNAME,
     UPDATES_CHANNEL,
+    SUDO_USERS,
+    OWNER_ID,
 )
 
 
-@Client.on_callback_query(filters.regex("cbstart"))
-async def cbstart(_, query: CallbackQuery):
+@Client.on_callback_query(filters.regex("home_start"))
+@check_blacklist()
+async def start_set(_, query: CallbackQuery):
     await query.answer("الصفحه الرئيسيه")
     await query.edit_message_text(
         f"""✨ **مرحبا عزيزي ↤「 [{query.message.chat.first_name}](tg://user?id={query.message.chat.id}) 」!**\n
@@ -30,13 +52,13 @@ async def cbstart(_, query: CallbackQuery):
                 [
                     InlineKeyboardButton(
                         "➕اضـف الـبـوت لـمـجـمـوعـتـك➕",
-                        url=f"https://t.me/USDDBOT?startgroup=truehttps://t.me/USDDBOT?startgroup=true",
+                        url=f"https://t.me/USDDBOT?startgroup=true",
                     )
                 ],
-                [InlineKeyboardButton("❓ طريقة التفعيل", callback_data="cbhowtouse")],
+                [InlineKeyboardButton("❓ طريقة التفعيل", callback_data="user_guide")],
                 [
-                    InlineKeyboardButton("📚 الاوامر", callback_data="cbcmds"),
-                    InlineKeyboardButton("❤️ المطور", url=f"https://t.me/{OWNER_NAME}"),
+                    InlineKeyboardButton("📚 الاوامر", callback_data="command_list"),
+                    InlineKeyboardButton("❤ المطور", url=f"https://t.me/{OWNER_USERNAME}"),
                 ],
                 [
                     InlineKeyboardButton(
@@ -57,8 +79,9 @@ async def cbstart(_, query: CallbackQuery):
     )
 
 
-@Client.on_callback_query(filters.regex("cbhowtouse"))
-async def cbguides(_, query: CallbackQuery):
+@Client.on_callback_query(filters.regex("user_guide"))
+@check_blacklist()
+async def quick_set(_, query: CallbackQuery):
     await query.answer("طريقة الاستخدام")
     await query.edit_message_text(
         f""" الدليل الأساسي لاستخدام هذا البوت:
@@ -76,13 +99,46 @@ async def cbguides(_, query: CallbackQuery):
 ⚡ قناة البوت @{UPDATES_CHANNEL}
 """,
         reply_markup=InlineKeyboardMarkup(
-            [[InlineKeyboardButton("🔙 رجوع", callback_data="cbstart")]]
+            [[InlineKeyboardButton("🔙 رجوع", callback_data="home_start")]]
+        ),
+        disable_web_page_preview=True,
+    )
+
+
+@Client.on_callback_query(filters.regex("user_guideg"))
+@check_blacklist()
+async def guide_set(_, query: CallbackQuery):
+    await query.answer("user guide")
+    await query.edit_message_text(
+        f"""❓ How to use this Bot ?, read the Guide below !
+
+1.) First, add this bot to your Group.
+2.) Then, promote this bot as administrator on the Group also give all permissions except Anonymous admin.
+3.) After promoting this bot, type /reload in Group to update the admin data.
+3.) Invite @{me_user.username} to your group or type /userbotjoin to invite her, unfortunately the userbot will joined by itself when you type `/play (song name)` or `/vplay (song name)`.
+4.) Turn on/Start the video chat first before start to play video/music.
+
+`- END, EVERYTHING HAS BEEN SETUP -`
+
+📌 If the userbot not joined to video chat, make sure if the video chat already turned on and the userbot in the chat.
+
+💡 If you have a follow-up questions about this bot, you can tell it on my support chat here: @{GROUP_SUPPORT}.""",
+        reply_markup=InlineKeyboardMarkup(
+            [
+                [
+                    InlineKeyboardButton("» Quick use Guide «", callback_data="quick_use")
+                ],[
+                    InlineKeyboardButton("🔙 Go Back", callback_data="home_start")
+                ],
+            ]
         ),
     )
 
 
-@Client.on_callback_query(filters.regex("cbcmds"))
-async def cbcmds(_, query: CallbackQuery):
+@Client.on_callback_query(filters.regex("command_list"))
+@check_blacklist()
+async def commands_set(_, query: CallbackQuery):
+    user_id = query.from_user.id
     await query.answer("قائمة الاوامر")
     await query.edit_message_text(
         f"""» **قم بالضغط علي الزر الذي تريده لمعرفه الاوامر لكل فئه منهم !**
@@ -91,20 +147,21 @@ async def cbcmds(_, query: CallbackQuery):
         reply_markup=InlineKeyboardMarkup(
             [
                 [
-                    InlineKeyboardButton("👷🏻 اوامر الادمنيه", callback_data="cbadmin"),
-                    InlineKeyboardButton("🧙🏻 اوامر المطور", callback_data="cbsudo"),
+                    InlineKeyboardButton("👷🏻 اوامر الادمنيه", callback_data="admin_command"),
+                    InlineKeyboardButton("🧙🏻 اوامر المطور", callback_data="sudo_command"),
                 ],[
-                    InlineKeyboardButton("📚 اوامر اساسيه", callback_data="cbbasic")
+                    InlineKeyboardButton("📚 اوامر اساسيه", callback_data="user_command"),
                 ],[
-                    InlineKeyboardButton("🔙 رجوع", callback_data="cbstart")
+                    InlineKeyboardButton("🔙 رجوع", callback_data="home_start")
                 ],
             ]
         ),
     )
 
 
-@Client.on_callback_query(filters.regex("cbbasic"))
-async def cbbasic(_, query: CallbackQuery):
+@Client.on_callback_query(filters.regex("user_command"))
+@check_blacklist()
+async def user_set(_, query: CallbackQuery):
     await query.answer("الاوامر الاساسيه")
     await query.edit_message_text(
         f"""🏮 الاوامر الاساسيه:
@@ -122,14 +179,14 @@ async def cbbasic(_, query: CallbackQuery):
 » /alive「اظهار معلومات البوت(في المجموعه)」
 ⚡ قناة البوت @{UPDATES_CHANNEL}""",
         reply_markup=InlineKeyboardMarkup(
-            [[InlineKeyboardButton("🔙 رجوع", callback_data="cbcmds")]]
+            [[InlineKeyboardButton("🔙 رجوع", callback_data="command_list")]]
         ),
     )
 
 
-
-@Client.on_callback_query(filters.regex("cbadmin"))
-async def cbadmin(_, query: CallbackQuery):
+@Client.on_callback_query(filters.regex("admin_command"))
+@check_blacklist()
+async def admin_set(_, query: CallbackQuery):
     await query.answer("اوامر الادمنيه")
     await query.edit_message_text(
         f"""🏮 هنا أوامر الادمنيه:
@@ -145,13 +202,19 @@ async def cbadmin(_, query: CallbackQuery):
 » /userbotleave「لطرد الحساب المساعد」
 ⚡ قناة البوت @{UPDATES_CHANNEL}""",
         reply_markup=InlineKeyboardMarkup(
-            [[InlineKeyboardButton("🔙 رجوع", callback_data="cbcmds")]]
+            [[InlineKeyboardButton("🔙 رجوع", callback_data="command_list")]]
         ),
     )
 
-@Client.on_callback_query(filters.regex("cbsudo"))
-async def cbsudo(_, query: CallbackQuery):
-    await query.answer("اوامر المطور")
+
+@Client.on_callback_query(filters.regex("sudo_command"))
+@check_blacklist()
+async def sudo_set(_, query: CallbackQuery):
+    user_id = query.from_user.id
+    if user_id not in SUDO_USERS:
+        await query.answer("⚠️ هذه الاوامر تخص مطور البوت فقط", show_alert=True)
+        return
+    await query.answer("sudo commands")
     await query.edit_message_text(
         f"""🏮 هنا اوامر المطور:
 
@@ -164,32 +227,75 @@ async def cbsudo(_, query: CallbackQuery):
 
 ⚡ قناة البوت @{UPDATES_CHANNEL}""",
         reply_markup=InlineKeyboardMarkup(
-            [[InlineKeyboardButton("🔙 رجوع", callback_data="cbcmds")]]
+            [[InlineKeyboardButton("🔙 رجوع", callback_data="command_list")]]
         ),
     )
 
 
-@Client.on_callback_query(filters.regex("cbmenu"))
-async def cbmenu(_, query: CallbackQuery):
+@Client.on_callback_query(filters.regex("owner_command"))
+@check_blacklist()
+async def owner_set(_, query: CallbackQuery):
+    user_id = query.from_user.id
+    if user_id not in OWNER_ID:
+        await query.answer("⚠️ You don't have permissions to click this button\n\n» This button is reserved for owner of this bot.", show_alert=True)
+        return
+    await query.answer("owner commands")
+    await query.edit_message_text(
+        f"""✏️ Command list for bot owner.
+
+» /gban (`username` or `user_id`) - for global banned people, can be used only in group
+» /ungban (`username` or `user_id`) - for un-global banned people, can be used only in group
+» /update - update your bot to latest version
+» /restart - restart your bot server
+» /leaveall - order userbot to leave from all group
+» /leavebot (`chat id`) - order bot to leave from the group you specify
+» /broadcast (`message`) - send a broadcast message to all groups in bot database
+» /broadcast_pin (`message`) - send a broadcast message to all groups in bot database with the chat pin""",
+        reply_markup=InlineKeyboardMarkup(
+            [[InlineKeyboardButton("🔙 Go Back", callback_data="command_list")]]
+        ),
+    )
+
+
+@Client.on_callback_query(filters.regex("stream_menu_panel"))
+@check_blacklist()
+async def at_set_markup_menu(_, query: CallbackQuery):
+    user_id = query.from_user.id
     a = await _.get_chat_member(query.message.chat.id, query.from_user.id)
     if not a.can_manage_voice_chats:
         return await query.answer("💡 المسؤول الوحيد الذي لديه إذن إدارة الدردشات الصوتية يمكنه النقر على هذا الزر !", show_alert=True)
     chat_id = query.message.chat.id
     user_id = query.message.from_user.id
     buttons = menu_markup(user_id)
-    chat = query.message.chat.title
     if chat_id in QUEUE:
-          await query.edit_message_text(
-              f"⚙️ **الإعدادات** {query.message.chat.title}\n\n⏸ : ايقاف التشغيل موقتآ\n▶️ : استئناف التشغيل\n🔇 : كتم الصوت\n🔊 : الغاء كتم الصوت\n⏹ : ايقاف التشغيل",
-              reply_markup=InlineKeyboardMarkup(buttons),
-          )
+        await query.answer("control panel opened")
+        await query.edit_message_reply_markup(reply_markup=InlineKeyboardMarkup(buttons))
     else:
         await query.answer("❌ قائمة التشغيل فارغه", show_alert=True)
 
 
-@Client.on_callback_query(filters.regex("cls"))
-async def close(_, query: CallbackQuery):
+@Client.on_callback_query(filters.regex("stream_home_panel"))
+@check_blacklist()
+async def is_set_home_menu(_, query: CallbackQuery):
     a = await _.get_chat_member(query.message.chat.id, query.from_user.id)
     if not a.can_manage_voice_chats:
         return await query.answer("💡 المسؤول الوحيد الذي لديه إذن إدارة الدردشات الصوتية يمكنه النقر على هذا الزر !", show_alert=True)
+    await query.answer("control panel closed")
+    user_id = query.message.from_user.id
+    buttons = stream_markup(user_id)
+    await query.edit_message_reply_markup(reply_markup=InlineKeyboardMarkup(buttons))
+
+
+@Client.on_callback_query(filters.regex("set_close"))
+@check_blacklist()
+async def on_close_menu(_, query: CallbackQuery):
+    a = await _.get_chat_member(query.message.chat.id, query.from_user.id)
+    if not a.can_manage_voice_chats:
+        return await query.answer("💡 المسؤول الوحيد الذي لديه إذن إدارة الدردشات الصوتية يمكنه النقر على هذا الزر !", show_alert=True)
+    await query.message.delete()
+
+
+@Client.on_callback_query(filters.regex("close_panel"))
+@check_blacklist()
+async def in_close_panel(_, query: CallbackQuery):
     await query.message.delete()
