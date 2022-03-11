@@ -1,10 +1,8 @@
 """ inline section button """
 
 from pyrogram.types import (
-  CallbackQuery,
   InlineKeyboardButton,
   InlineKeyboardMarkup,
-  Message,
 )
 
 
@@ -26,16 +24,16 @@ def stream_markup(user_id):
 def menu_markup(user_id):
   buttons = [
     [
-      InlineKeyboardButton(text="⏹", callback_data=f'cbstop | {user_id}'),
-      InlineKeyboardButton(text="⏸", callback_data=f'cbpause | {user_id}'),
-      InlineKeyboardButton(text="▶️", callback_data=f'cbresume | {user_id}'),
+      InlineKeyboardButton(text="⏹", callback_data=f'set_stop | {user_id}'),
+      InlineKeyboardButton(text="⏸", callback_data=f'set_pause | {user_id}'),
+      InlineKeyboardButton(text="▶️", callback_data=f'set_resume | {user_id}'),
     ],
     [
-      InlineKeyboardButton(text="🔇", callback_data=f'cbmute | {user_id}'),
-      InlineKeyboardButton(text="🔊", callback_data=f'cbunmute | {user_id}'),
+      InlineKeyboardButton(text="🔇", callback_data=f'set_mute | {user_id}'),
+      InlineKeyboardButton(text="🔊", callback_data=f'set_unmute | {user_id}'),
     ],
     [
-      InlineKeyboardButton(text="🗑 اغلاق", callback_data='cls'),
+      InlineKeyboardButton(text="🔙 رجوع", callback_data='stream_home_panel'),
     ]
   ]
   return buttons
@@ -45,7 +43,7 @@ close_mark = InlineKeyboardMarkup(
   [
     [
       InlineKeyboardButton(
-        "🔙 رجوع", callback_data="cbmenu"
+        "", callback_data="set_close"
       )
     ]
   ]
@@ -56,7 +54,7 @@ back_mark = InlineKeyboardMarkup(
   [
     [
       InlineKeyboardButton(
-        "🔙 رجوع", callback_data="cbmenu"
+        "🔙 رجوع", callback_data="stream_menu_panel"
       )
     ]
   ]
