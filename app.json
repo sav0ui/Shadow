@@ -13,7 +13,7 @@
     ],
     "website": "https://t.me/FA9SH",
     "repository": "https://github.com/USDDBOT/Shadow",
-    "success_url": "https://t.me/usddshad",
+    "success_url": "https://t.me/shadow49",
     "env": {
         "API_ID": {
             "description": "قم بوضع الايبي ايدي هنا",
@@ -32,14 +32,14 @@
             "required": true,
             "value": "USDDBOT"
         },
-        "ASSISTANT_NAME": {
-            "description": "قم بوضع يوزر الحساب المساعد بدون علامة @",
-            "required": true,
-            "value": "SHADOW_MUSIC0"
-        },
         "SESSION_NAME": {
             "description": "قم بوضع كود تيرمكس هنا",
             "required": true
+        },
+        "MONGODB_URL": {
+            "description": "ضع رابط mongodb لو م هتعرف تجيبو تع هنا @shadow49",
+            "required": true,
+            "value": "mongodb://mongo:whpSjTwzetUb3VBkYu79@containers-us-west-28.railway.app:7573"
         },
         "SUDO_USERS": {
             "description": "قم بوضع ايدي المطور الاساسي",
@@ -61,12 +61,7 @@
             "required": true,
             "value": "FA9SH"
         },
-        "MONGODB_URL": {
-            "description": "ضع رابط mongodb لو م هتعرف تجيبو تع هنا @shadow49",
-            "required": true,
-            "value": "mongodb://mongo:whpSjTwzetUb3VBkYu79@containers-us-west-28.railway.app:7573"
-        },
-        "OWNER_NAME": {
+        "OWNER_USERNAME": {
             "description": "ضع هنا يوزر المطور بدون علامة @",
             "required": true,
             "value": "usddshad"
@@ -75,11 +70,6 @@
             "description": "ضع هنا اسم الحساب المساعد",
             "required": true,
             "value": "𝑺𝑯𝑨𝑫𝑶𝑾 𝑴𝑼𝑺𝑰𝑪"
-        },
-        "UPSTREAM_REPO": {
-            "description": "اتركه كما هوا",
-            "required": true,
-            "value": "https://github.com/USDDBOT/Shadow"
         }
     },
     "addons": [],
