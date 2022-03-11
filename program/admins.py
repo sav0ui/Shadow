@@ -26,7 +26,6 @@ from driver.design.thumbnail import thumb
 from driver.design.chatname import CHAT_TITLE
 from driver.queues import QUEUE, clear_queue
 from driver.filters import command, other_filters
-from driver.decorators import authorized_users_only, check_blacklist
 from driver.utils import skip_current_song, skip_item, remove_if_exists
 from config import BOT_USERNAME, IMG_5
 
