@@ -41,7 +41,7 @@
             "description": "قم بوضع كود تيرمكس هنا",
             "required": true
         },
-        "SUDO_USERS": {
+        "OWNER_ID": {
             "description": "قم بوضع ايدي المطور الاساسي",
             "required": true,
             "value": "1970797144"
