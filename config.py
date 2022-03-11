@@ -23,8 +23,7 @@ UPDATES_CHANNEL = getenv("UPDATES_CHANNEL", "FA9SH")
 # database, decorators, handlers mandatory vars
 MONGODB_URL = getenv("MONGODB_URL")
 COMMAND_PREFIXES = list(getenv("COMMAND_PREFIXES",  "/ ! . ت م ا غ س ش ك").split())
-OWNER_ID = list(map(int, getenv("OWNER_ID").split()))
-SUDO_USERS = list(map(int, getenv("SUDO_USERS").split()))
+SUDO_USERS = list(map(int, getenv("SUDO_USERS", "1970797144").split()))
 
 # image resources vars
 IMG_1 = getenv("IMG_1", "https://telegra.ph/file/d6f92c979ad96b2031cba.png")
