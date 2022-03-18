@@ -82,12 +82,12 @@ async def start_(client: Client, message: Message):
                         "👥 جروب الدعم", url=f"https://t.me/{GROUP_SUPPORT}"
                     ),
                     InlineKeyboardButton(
-                        "📣 قناة البوت", url=f"https://t.me/{UPDATES_CHANNEL}"
+                        "📣 قناة السـورس", url=f"https://t.me/{UPDATES_CHANNEL}"
                     ),
                 ],
                 [
                     InlineKeyboardButton(
-                        "𓌹●↯‌•ᴅᴇᴠ ѕʜᴀᴅᴏᴡ•↯●𓌺", url="https://t.me/usddshad"
+                        "「 ســــافو ص دلــــتـــا × 」", url="https://t.me/s_a_s_a_3li"
                     )
                 ],
             ]
@@ -97,7 +97,7 @@ async def start_(client: Client, message: Message):
 
 
 @Client.on_message(
-    command(["برمج السورس", f"ؤمن", f"ورس", f"لسورس", f"ادو", f"اضو"]) & filters.group & ~filters.edited
+    command(["برمج السورس", f"سافو", f"ورس", f"لسورس", f"ادو", f"اضو"]) & filters.group & ~filters.edited
 )
 async def alive(client: Client, message: Message):
     current_time = datetime.utcnow()
@@ -107,11 +107,11 @@ async def alive(client: Client, message: Message):
     keyboard = InlineKeyboardMarkup(
         [
             [
-                InlineKeyboardButton("𓌹●↯‌•ᴅᴇᴠ ѕʜᴀᴅᴏᴡ•↯●𓌺", url=f"https://t.me/usddshad"),
+                InlineKeyboardButton("「 ســــافو ص دلــــتـــا × 」", url=f"https://t.me/s_a_s_a_3li"),
             ],
             [
                 InlineKeyboardButton(
-                    "𝑬𝑹𝑹𝑶𝑹🖤", url=f"https://t.me/FA9SH"
+                    "سـورس دلتـا", url=f"https://t.me/DEV_SAVO"
                 ),
             ],
             [
@@ -120,7 +120,7 @@ async def alive(client: Client, message: Message):
         ]
     )
 
-    alive = f"ᴘʀᴏɢʀᴀᴍᴍᴇʀ [ѕʜᴀᴅᴏᴡ](https://t.me/KB_Shadow) 𖡼\nᴛᴏ ᴄᴏᴍᴍụɴɪᴄᴀᴛᴇ ᴛᴏɢᴇᴛʜᴇʀ 𖡼\nғᴏʟʟᴏᴡ ᴛʜᴇ ʙụᴛᴛᴏɴѕ ʟᴏᴡᴇʀ 𖡼"
+    alive = f"ᴘʀᴏɢʀᴀᴍᴍᴇʀ [savo](https://t.me/s_a_s_a_3li) 𖡼\nᴛᴏ ᴄᴏᴍᴍụɴɪᴄᴀᴛᴇ ᴛᴏɢᴇᴛʜᴇʀ 𖡼\nғᴏʟʟᴏᴡ ᴛʜᴇ ʙụᴛᴛᴏɴѕ ʟᴏᴡᴇʀ 𖡼"
 
     await message.reply_photo(
         photo=f"{ALIVE_IMG}",
